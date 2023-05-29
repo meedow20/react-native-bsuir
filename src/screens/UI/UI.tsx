@@ -1,12 +1,27 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, SafeAreaView, View} from 'react-native';
+import {colors} from '../../theme/colors';
 
 function UI() {
   return (
-    <View>
-      <Text>UI</Text>
-    </View>
+    <SafeAreaView style={styles.component}>
+      <View style={styles.container}>
+        <Text>UI</Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
 export default UI;
+
+const styles = StyleSheet.create({
+  component: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+});
