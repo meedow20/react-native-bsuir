@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   },
 
   url: {
-    color: colors.blue,
+    color: colors.violet,
   },
 });
