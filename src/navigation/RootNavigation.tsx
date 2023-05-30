@@ -6,13 +6,14 @@ import ActivityList from '../screens/ActivityList';
 import Network from '../screens/Network';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {navigationTheme} from '../theme/colors';
 
 const Drawer = createDrawerNavigator();
 
 function RootNavigation() {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={navigationTheme}>
         <Drawer.Navigator initialRouteName="UI">
           <Drawer.Screen name="UI" component={UI} />
           <Drawer.Screen name="Activity" component={Activity} />
