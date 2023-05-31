@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,23 +11,26 @@ import {colors} from '../../theme/colors';
 import {getNewsData} from './helpers';
 import {NewsDataArticleResponse, NewsDataResponse} from './types';
 import NewsCard from './components/NewsCard';
+import {useFocusEffect} from '@react-navigation/native';
 
 function Network() {
   const [data, setData] = useState<NewsDataResponse | null>(null);
   const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getNewsData();
-        setData(response);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        try {
+          const response = await getNewsData();
+          setData(response);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    }, []),
+  );
 
   return (
     <SafeAreaView style={styles.component}>

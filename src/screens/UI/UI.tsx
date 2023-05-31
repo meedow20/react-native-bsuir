@@ -34,7 +34,7 @@ function UI() {
         <Button
           style={styles.button}
           mode="contained"
-          onPress={() => console.log('Pressed')}>
+          onPress={() => console.log('Press')}>
           Рассчитать
         </Button>
       </ScrollView>

@@ -7,8 +7,9 @@ import Network from '../screens/Network';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors, navigationTheme} from '../theme/colors';
+import {RootNavigationProps} from './types';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<RootNavigationProps>();
 
 function RootNavigation() {
   return (
