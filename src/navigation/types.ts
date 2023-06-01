@@ -1,30 +1,30 @@
-import {DetailedActivityParams} from '../screens/DetailedActivity/types';
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {DetailedApplicationParams} from '../screens/DetailedApplication/types';
 
 export type RootNavigationProps = {
-  UI: undefined;
-  Activity: undefined;
-  ActivityList: NavigatorScreenParams<ActivityStackNavigationProps>;
+  CreditCalculator: undefined;
+  ApplicationCreate: undefined;
+  ApplicationList: NavigatorScreenParams<ApplicationStackNavigationProps>;
   Network: undefined;
 };
 
 export type MainDrawerNavigationProps = {
-  UI: undefined;
-  Activity: undefined;
-  ActivityList: undefined;
+  CreditCalculator: undefined;
+  ApplicationCreate: undefined;
+  ApplicationList: undefined;
   Network: undefined;
 };
 
-export type ActivityStackNavigationProps = {
-  ActivityListMain: undefined;
-  DetailedActivity: DetailedActivityParams;
+export type ApplicationStackNavigationProps = {
+  ApplicationListMain: undefined;
+  DetailedApplication: DetailedApplicationParams;
 };
 
 export type FullNavigationScreens = {
-  UI: undefined;
-  Activity: undefined;
-  ActivityList: undefined;
-  ActivityListMain: undefined;
-  DetailedActivity: DetailedActivityParams;
+  CreditCalculator: undefined;
+  ApplicationCreate: undefined;
+  ApplicationList: undefined;
+  ApplicationListMain: undefined;
+  DetailedApplication: DetailedApplicationParams;
   Network: undefined;
 };

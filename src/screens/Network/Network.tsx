@@ -14,15 +14,16 @@ import NewsCard from './components/NewsCard';
 import {useFocusEffect} from '@react-navigation/native';
 
 function Network() {
-  const [data, setData] = useState<NewsDataResponse | null>(null);
+  const [newsData, setNewsData] = useState<NewsDataResponse | null>(null);
   const [isLoading, setLoading] = useState(true);
 
   useFocusEffect(
     useCallback(() => {
       (async () => {
         try {
-          const response = await getNewsData();
-          setData(response);
+          const newsResponse = await getNewsData();
+
+          setNewsData(newsResponse);
         } catch (error) {
           console.error(error);
         } finally {
@@ -38,9 +39,9 @@ function Network() {
         <ActivityIndicator />
       ) : (
         <View style={styles.container}>
-          {data && data.articles && data.articles.length > 0 ? (
+          {newsData && newsData.articles && newsData.articles.length > 0 ? (
             <FlatList<NewsDataArticleResponse>
-              data={data.articles}
+              data={newsData.articles}
               renderItem={({item, index}) => (
                 <View key={index} style={styles.newsCardWrapper}>
                   <NewsCard

@@ -1,6 +1,6 @@
-import {ActivityValues} from './types';
+import {ApplicationCreateValues} from './types';
 
-export const getInitialActivityValues = (): ActivityValues => {
+export const getInitialApplicationValues = (): ApplicationCreateValues => {
   return {
     id: '',
     name: '',

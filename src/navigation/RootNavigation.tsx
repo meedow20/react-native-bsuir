@@ -1,47 +1,56 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import UI from '../screens/UI';
-import Activity from '../screens/Activity';
+import CreditCalculator from '../screens/CreditCalculator';
+import ApplicationCreate from '../screens/ApplicationCreate';
+import ApplicationList from '../screens/ApplicationList';
+import DetailedApplication from '../screens/DetailedApplication';
 import Network from '../screens/Network';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors, navigationTheme} from '../theme/colors';
-import {MainDrawerNavigationProps, ActivityStackNavigationProps} from './types';
-import DetailedActivity from '../screens/DetailedActivity';
-import ActivityList from '../screens/ActivityList';
+import {
+  MainDrawerNavigationProps,
+  ApplicationStackNavigationProps,
+} from './types';
 
 const MainDrawerNavigator = createDrawerNavigator<MainDrawerNavigationProps>();
-const ActivityStackNavigator =
-  createNativeStackNavigator<ActivityStackNavigationProps>();
+const ApplicationStackNavigator =
+  createNativeStackNavigator<ApplicationStackNavigationProps>();
 
-function ActivityListNavigation() {
+function ApplicationListNavigation() {
   return (
-    <ActivityStackNavigator.Navigator initialRouteName="ActivityListMain">
-      <ActivityStackNavigator.Screen
-        name="ActivityListMain"
-        component={ActivityList}
+    <ApplicationStackNavigator.Navigator initialRouteName="ApplicationListMain">
+      <ApplicationStackNavigator.Screen
+        name="ApplicationListMain"
+        component={ApplicationList}
         options={{headerShown: false}}
       />
-      <ActivityStackNavigator.Screen
-        name="DetailedActivity"
-        component={DetailedActivity}
+      <ApplicationStackNavigator.Screen
+        name="DetailedApplication"
+        component={DetailedApplication}
         options={{headerTitle: ''}}
       />
-    </ActivityStackNavigator.Navigator>
+    </ApplicationStackNavigator.Navigator>
   );
 }
 
 function MainNavigation() {
   return (
     <MainDrawerNavigator.Navigator
-      initialRouteName="UI"
+      initialRouteName="CreditCalculator"
       screenOptions={{headerTintColor: colors.violet}}>
-      <MainDrawerNavigator.Screen name="UI" component={UI} />
-      <MainDrawerNavigator.Screen name="Activity" component={Activity} />
       <MainDrawerNavigator.Screen
-        name="ActivityList"
-        component={ActivityListNavigation}
+        name="CreditCalculator"
+        component={CreditCalculator}
+      />
+      <MainDrawerNavigator.Screen
+        name="ApplicationCreate"
+        component={ApplicationCreate}
+      />
+      <MainDrawerNavigator.Screen
+        name="ApplicationList"
+        component={ApplicationListNavigation}
       />
       <MainDrawerNavigator.Screen name="Network" component={Network} />
     </MainDrawerNavigator.Navigator>

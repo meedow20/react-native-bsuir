@@ -3,16 +3,16 @@ import {SafeAreaView, ScrollView, StyleSheet, Text} from 'react-native';
 import {colors} from '../../theme/colors';
 
 import {useTypedRoute} from '../../hooks/useTypedRoute';
-import ActivityCard from '../../components/ActivityCard';
+import ApplicationCard from '../../components/ApplicationCard';
 
-function DetailedActivity() {
-  const {params} = useTypedRoute('DetailedActivity');
+function DetailedApplication() {
+  const {params} = useTypedRoute('DetailedApplication');
 
   return (
     <SafeAreaView style={styles.component}>
       <ScrollView style={styles.container}>
         {params ? (
-          <ActivityCard
+          <ApplicationCard
             photo={params.photo}
             name={params.name}
             type={params.type}
@@ -33,7 +33,7 @@ function DetailedActivity() {
   );
 }
 
-export default DetailedActivity;
+export default DetailedApplication;
 
 const styles = StyleSheet.create({
   component: {

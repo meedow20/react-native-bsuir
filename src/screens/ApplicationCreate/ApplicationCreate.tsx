@@ -9,19 +9,20 @@ import {
 } from 'react-native';
 import {colors} from '../../theme/colors';
 import {Button, TextInput} from 'react-native-paper';
-import {ActivityValues, StepType} from './types';
-import {getInitialActivityValues} from './helpers';
+import {ApplicationCreateValues, StepType} from './types';
+import {getInitialApplicationValues} from './helpers';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {useTypedNavigation} from '../../hooks/useTypedNavigation';
 import uuid from 'react-native-uuid';
+import {launchImageLibrary} from 'react-native-image-picker';
 
-function Activity() {
+function ApplicationCreate() {
   const [currentStep, setCurrentStep] = useState<StepType>('first');
-  const [values, setValues] = useState<ActivityValues>(
-    getInitialActivityValues(),
+  const [values, setValues] = useState<ApplicationCreateValues>(
+    getInitialApplicationValues(),
   );
-  const {getItem, setItem} = useAsyncStorage('activity_values');
+  const {getItem, setItem} = useAsyncStorage('application_values');
   const navigation = useTypedNavigation();
 
   const isButtonDisabled =
@@ -41,6 +42,22 @@ function Activity() {
     setCurrentStep('first');
   };
 
+  const handleOpenImage = async () => {
+    try {
+      await launchImageLibrary({mediaType: 'photo'}, response => {
+        if (response.errorCode) {
+          console.log(response.errorCode);
+        } else {
+          if (response.assets && response.assets[0].uri) {
+            setValues({...values, photo: response.assets[0].uri});
+          }
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSubmitButton = async () => {
     if (currentStep === 'first') {
       setCurrentStep('second');
@@ -58,9 +75,9 @@ function Activity() {
           await setItem(JSON.stringify([resultValues]));
         }
 
-        setValues(getInitialActivityValues());
+        setValues(getInitialApplicationValues());
         setCurrentStep('first');
-        navigation.navigate('ActivityList', {screen: 'ActivityListMain'});
+        navigation.navigate('ApplicationList', {screen: 'ApplicationListMain'});
       } catch (error) {
         console.log(error);
       }
@@ -76,7 +93,7 @@ function Activity() {
               style={styles.buttonBack}
               onPress={handleBackButton}>
               <Icon name="arrow-back" size={20} />
-              <Text style={styles.buttonBackText}>Назад</Text>
+              <Text style={styles.buttonBackText}>Back</Text>
             </TouchableOpacity>
           )}
 
@@ -85,7 +102,7 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Название"
+                  label="Name"
                   value={values.name}
                   onChangeText={value => setValues({...values, name: value})}
                 />
@@ -94,7 +111,7 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Тип"
+                  label="Type"
                   value={values.type}
                   onChangeText={value => setValues({...values, type: value})}
                 />
@@ -103,7 +120,7 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Автор"
+                  label="Author"
                   value={values.author}
                   onChangeText={value => setValues({...values, author: value})}
                 />
@@ -112,7 +129,7 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Год выпуска"
+                  label="Year of issue"
                   value={values.year}
                   onChangeText={value => setValues({...values, year: value})}
                 />
@@ -121,7 +138,7 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Платформа"
+                  label="Platform"
                   value={values.platform}
                   onChangeText={value =>
                     setValues({...values, platform: value})
@@ -136,7 +153,7 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Количество скачиваний"
+                  label="Number of downloads"
                   value={values.downloads}
                   onChangeText={value =>
                     setValues({...values, downloads: value})
@@ -156,7 +173,7 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Телефон"
+                  label="Phone"
                   value={values.phone}
                   onChangeText={value => setValues({...values, phone: value})}
                 />
@@ -165,16 +182,16 @@ function Activity() {
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Ссылка на фото"
+                  label="Photo"
                   value={values.photo}
-                  onChangeText={value => setValues({...values, photo: value})}
+                  onPressIn={handleOpenImage}
                 />
               </View>
 
               <View style={styles.field}>
                 <TextInput
                   mode="outlined"
-                  label="Ссылка на соц. сеть"
+                  label="Social link"
                   value={values.social}
                   onChangeText={value => setValues({...values, social: value})}
                 />
@@ -187,7 +204,7 @@ function Activity() {
             mode="contained"
             onPress={handleSubmitButton}
             disabled={isButtonDisabled}>
-            {currentStep === 'first' ? 'Далее' : 'Сохранить'}
+            {currentStep === 'first' ? 'Next' : 'Save'}
           </Button>
         </ScrollView>
       </View>
@@ -195,7 +212,7 @@ function Activity() {
   );
 }
 
-export default Activity;
+export default ApplicationCreate;
 
 const styles = StyleSheet.create({
   component: {

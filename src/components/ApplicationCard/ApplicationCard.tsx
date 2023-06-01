@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityCardProps} from './types';
+import {ApplicationCardProps} from './types';
 import {
   Image,
   Linking,
@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {colors} from '../../theme/colors';
 
-function ActivityCard({
+function ApplicationCard({
   photo,
   name,
   type,
@@ -23,13 +23,13 @@ function ActivityCard({
   platform,
   isFullCard,
   onClick,
-}: ActivityCardProps) {
+}: ApplicationCardProps) {
   const inner = (
     <React.Fragment>
       <Image source={{uri: photo}} style={styles.image} />
       <View style={styles.content}>
         <View style={styles.param}>
-          <Text style={styles.paramTitle}>Название</Text>
+          <Text style={styles.paramTitle}>Name</Text>
           <Text style={styles.paramValue}>{name}</Text>
         </View>
 
@@ -37,42 +37,42 @@ function ActivityCard({
           <React.Fragment>
             {type && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Тип</Text>
+                <Text style={styles.paramTitle}>Type</Text>
                 <Text style={styles.paramValue}>{type}</Text>
               </View>
             )}
 
             {author && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Автор</Text>
+                <Text style={styles.paramTitle}>Author</Text>
                 <Text style={styles.paramValue}>{author}</Text>
               </View>
             )}
 
             {platform && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Платформа</Text>
+                <Text style={styles.paramTitle}>Platform</Text>
                 <Text style={styles.paramValue}>{platform}</Text>
               </View>
             )}
 
             {year && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Год выпуска</Text>
+                <Text style={styles.paramTitle}>Year of issue</Text>
                 <Text style={styles.paramValue}>{year}</Text>
               </View>
             )}
 
             {downloads && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Количество скачиваний</Text>
+                <Text style={styles.paramTitle}>Number of downloads</Text>
                 <Text style={styles.paramValue}>{downloads}</Text>
               </View>
             )}
 
             {email && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Почта</Text>
+                <Text style={styles.paramTitle}>Email</Text>
                 <Text
                   style={[styles.paramValue, styles.paramValueLink]}
                   onPress={() => Linking.openURL(`mailto: ${email}`)}>
@@ -83,7 +83,7 @@ function ActivityCard({
 
             {phone && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Телефон</Text>
+                <Text style={styles.paramTitle}>Phone</Text>
                 <Text
                   style={[styles.paramValue, styles.paramValueLink]}
                   onPress={() => Linking.openURL(`tel: ${phone}`)}>
@@ -94,7 +94,7 @@ function ActivityCard({
 
             {social && (
               <View style={styles.param}>
-                <Text style={styles.paramTitle}>Соц. сеть</Text>
+                <Text style={styles.paramTitle}>Social link</Text>
                 <Text
                   style={[styles.paramValue, styles.paramValueLink]}
                   onPress={() => Linking.openURL(social)}>
@@ -115,16 +115,11 @@ function ActivityCard({
   );
 }
 
-export default ActivityCard;
+export default ApplicationCard;
 
 const styles = StyleSheet.create({
   component: {
     display: 'flex',
-  },
-
-  imageContainer: {
-    position: 'relative',
-    paddingTop: '50%',
   },
 
   image: {

@@ -1,7 +1,5 @@
-export type StepType = 'first' | 'second';
-
-export interface ActivityValues {
-  id: string;
+export interface DetailedApplicationParams {
+  photo: string;
   name: string;
   type: string;
   author: string;
@@ -10,6 +8,5 @@ export interface ActivityValues {
   downloads: string;
   email: string;
   phone: string;
-  photo: string;
   social: string;
 }

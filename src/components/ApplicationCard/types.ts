@@ -1,4 +1,4 @@
-export interface ActivityCardProps {
+export interface ApplicationCardProps {
   photo: string;
   name: string;
   type?: string;

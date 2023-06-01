@@ -1,15 +1,17 @@
 import React, {useCallback, useState} from 'react';
 import {StyleSheet, Text, SafeAreaView, View, FlatList} from 'react-native';
 import {colors} from '../../theme/colors';
-import {ActivityValues} from '../Activity/types';
+import {ApplicationCreateValues} from '../ApplicationCreate/types';
 import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
-import ActivityCard from '../../components/ActivityCard';
+import ApplicationCard from '../../components/ApplicationCard';
 import {useTypedNavigation} from '../../hooks/useTypedNavigation';
 
-function ActivityList() {
-  const [activityValues, setActivityValues] = useState<ActivityValues[]>([]);
-  const {getItem} = useAsyncStorage('activity_values');
+function ApplicationList() {
+  const [applicationCreateValues, setApplicationCreateValues] = useState<
+    ApplicationCreateValues[]
+  >([]);
+  const {getItem} = useAsyncStorage('application_values');
   const navigation = useTypedNavigation();
 
   useFocusEffect(
@@ -19,7 +21,7 @@ function ActivityList() {
           const values = await getItem();
 
           if (values) {
-            setActivityValues(JSON.parse(values));
+            setApplicationCreateValues(JSON.parse(values));
           }
         } catch (error) {
           console.log(error);
@@ -29,20 +31,20 @@ function ActivityList() {
     }, []),
   );
 
-  const handleCardClick = (activity: ActivityValues) => {
-    navigation.navigate('ActivityList', {
-      screen: 'DetailedActivity',
+  const handleCardClick = (application: ApplicationCreateValues) => {
+    navigation.navigate('ApplicationList', {
+      screen: 'DetailedApplication',
       params: {
-        photo: activity.photo,
-        name: activity.name,
-        type: activity.type,
-        author: activity.author,
-        year: activity.year,
-        platform: activity.platform,
-        downloads: activity.downloads,
-        email: activity.email,
-        phone: activity.phone,
-        social: activity.social,
+        photo: application.photo,
+        name: application.name,
+        type: application.type,
+        author: application.author,
+        year: application.year,
+        platform: application.platform,
+        downloads: application.downloads,
+        email: application.email,
+        phone: application.phone,
+        social: application.social,
       },
     });
   };
@@ -50,12 +52,12 @@ function ActivityList() {
   return (
     <SafeAreaView style={styles.component}>
       <View style={styles.container}>
-        {activityValues && activityValues.length > 0 ? (
-          <FlatList<ActivityValues>
-            data={activityValues}
+        {applicationCreateValues && applicationCreateValues.length > 0 ? (
+          <FlatList<ApplicationCreateValues>
+            data={applicationCreateValues}
             renderItem={({item, index}) => (
-              <View key={index} style={styles.activityCard}>
-                <ActivityCard
+              <View key={index} style={styles.applicationCard}>
+                <ApplicationCard
                   photo={item.photo}
                   name={item.name}
                   onClick={() => handleCardClick(item)}
@@ -64,14 +66,14 @@ function ActivityList() {
             )}
           />
         ) : (
-          <Text>No activities</Text>
+          <Text>No applications</Text>
         )}
       </View>
     </SafeAreaView>
   );
 }
 
-export default ActivityList;
+export default ApplicationList;
 
 const styles = StyleSheet.create({
   component: {
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
 
-  activityCard: {
+  applicationCard: {
     marginBottom: 20,
     paddingBottom: 10,
     borderBottomWidth: 1,
