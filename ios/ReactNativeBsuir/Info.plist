@@ -70,5 +70,11 @@
       <string>Octicons.ttf</string>
       <string>Zocial.ttf</string>
     </array>
+
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>tel</string>
+      <string>telprompt</string>
+    </array>
 </dict>
 </plist>

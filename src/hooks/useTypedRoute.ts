@@ -1,6 +1,6 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
-import {RootNavigationProps} from '../navigation/types';
+import {FullNavigationScreens} from '../navigation/types';
 
-export const useTypedRoute = (key: keyof RootNavigationProps) => {
-  return useRoute<RouteProp<RootNavigationProps, typeof key>>();
+export const useTypedRoute = (key: keyof FullNavigationScreens) => {
+  return useRoute<RouteProp<FullNavigationScreens, typeof key>>();
 };

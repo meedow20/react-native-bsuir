@@ -1,13 +1,16 @@
 import React, {useCallback, useState} from 'react';
-import {StyleSheet, Text, SafeAreaView, View} from 'react-native';
+import {StyleSheet, Text, SafeAreaView, View, FlatList} from 'react-native';
 import {colors} from '../../theme/colors';
 import {ActivityValues} from '../Activity/types';
 import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
+import ActivityCard from '../../components/ActivityCard';
+import {useTypedNavigation} from '../../hooks/useTypedNavigation';
 
 function ActivityList() {
   const [activityValues, setActivityValues] = useState<ActivityValues[]>([]);
   const {getItem} = useAsyncStorage('activity_values');
+  const navigation = useTypedNavigation();
 
   useFocusEffect(
     useCallback(() => {
@@ -26,10 +29,43 @@ function ActivityList() {
     }, []),
   );
 
+  const handleCardClick = (activity: ActivityValues) => {
+    navigation.navigate('ActivityList', {
+      screen: 'DetailedActivity',
+      params: {
+        photo: activity.photo,
+        name: activity.name,
+        type: activity.type,
+        author: activity.author,
+        year: activity.year,
+        platform: activity.platform,
+        downloads: activity.downloads,
+        email: activity.email,
+        phone: activity.phone,
+        social: activity.social,
+      },
+    });
+  };
+
   return (
     <SafeAreaView style={styles.component}>
       <View style={styles.container}>
-        <Text>ActivityList</Text>
+        {activityValues && activityValues.length > 0 ? (
+          <FlatList<ActivityValues>
+            data={activityValues}
+            renderItem={({item, index}) => (
+              <View key={index} style={styles.activityCard}>
+                <ActivityCard
+                  photo={item.photo}
+                  name={item.name}
+                  onClick={() => handleCardClick(item)}
+                />
+              </View>
+            )}
+          />
+        ) : (
+          <Text>No activities</Text>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -45,6 +81,13 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    padding: 20,
+    margin: 20,
+  },
+
+  activityCard: {
+    marginBottom: 20,
+    paddingBottom: 10,
+    borderBottomWidth: 1,
+    borderColor: colors.gray,
   },
 });

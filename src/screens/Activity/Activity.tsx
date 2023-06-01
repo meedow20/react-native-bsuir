@@ -57,9 +57,10 @@ function Activity() {
         } else {
           await setItem(JSON.stringify([resultValues]));
         }
+
         setValues(getInitialActivityValues());
         setCurrentStep('first');
-        navigation.navigate('Activity list');
+        navigation.navigate('ActivityList', {screen: 'ActivityListMain'});
       } catch (error) {
         console.log(error);
       }
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    padding: 20,
+    margin: 20,
   },
 
   buttonBack: {
@@ -226,6 +227,6 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    marginVertical: 20,
+    marginTop: 20,
   },
 });
